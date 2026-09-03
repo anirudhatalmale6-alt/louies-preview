@@ -324,16 +324,31 @@ p { margin: 0 0 1.15em; }
 	background-image: var(--hero-image);
 	background-size: cover;
 	background-position: center;
-	opacity: .5;
+	/* The hero photo is the building at dusk, which is dark to begin with. Half
+	   opacity under a heavy scrim turned it into a brown smudge and the lit sign
+	   - the whole point of the picture - disappeared. */
+	opacity: .84;
 }
-/* Warm the photo rather than crushing it to black. */
+/* Warm the photo rather than crushing it to black.
+   Narrow screens get an even scrim, because the headline sits over the middle
+   of the frame and there is nowhere for it to move to. */
 .hero::after {
 	content: "";
 	position: absolute;
 	inset: 0;
 	background:
-		linear-gradient(180deg, rgba(36,16,24,.62) 0%, rgba(36,16,24,.55) 45%, rgba(36,16,24,.86) 100%),
-		linear-gradient(105deg, rgba(30,122,114,.34) 0%, rgba(239,139,44,.20) 100%);
+		linear-gradient(180deg, rgba(36,16,24,.72) 0%, rgba(36,16,24,.64) 45%, rgba(36,16,24,.88) 100%),
+		linear-gradient(105deg, rgba(30,122,114,.22) 0%, rgba(239,139,44,.14) 100%);
+}
+@media (min-width: 900px) {
+	/* Wide enough for the words and the sign to occupy different halves: dark
+	   on the left where the type is, clear on the right where the neon is. */
+	.hero::after {
+		background:
+			linear-gradient(100deg, rgba(36,16,24,.9) 0%, rgba(36,16,24,.68) 40%, rgba(36,16,24,.22) 72%, rgba(36,16,24,.36) 100%),
+			linear-gradient(180deg, rgba(36,16,24,0) 52%, rgba(36,16,24,.8) 100%),
+			linear-gradient(105deg, rgba(30,122,114,.18) 0%, rgba(239,139,44,.12) 100%);
+	}
 }
 .hero > * { position: relative; z-index: 2; }
 
@@ -814,6 +829,65 @@ p { margin: 0 0 1.15em; }
 	color: var(--on-dark-2);
 }
 
+/* Leagues.
+   Typeset badges in the bar's own colours, not the leagues' trademarked logos.
+   Each one can be replaced by an uploaded image from Bar Details, so the box
+   has to work for both a text mark and a supplied PNG. */
+.leagues-head {
+	font-size: .78rem;
+	font-weight: 700;
+	letter-spacing: .16em;
+	text-transform: uppercase;
+	color: var(--on-dark-2);
+	margin: 0 0 .8rem;
+	text-align: center;
+}
+.leagues {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+	gap: .7rem;
+	list-style: none;
+	margin: 0 0 2.2rem;
+	padding: 0;
+}
+.league {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: .4rem;
+	min-height: 92px;
+	padding: .8rem .5rem;
+	border-radius: var(--radius);
+	background: rgba(253, 247, 234, .07);
+	border: 1px solid rgba(253, 247, 234, .18);
+}
+.league-mark {
+	font-family: var(--display);
+	font-weight: 900;
+	font-size: 1.85rem;
+	line-height: 1;
+	letter-spacing: .01em;
+	padding: .3rem .7rem .22rem;
+	border-radius: 6px;
+	color: var(--plum);
+}
+.league-logo { max-width: 100%; height: 42px; width: auto; object-fit: contain; }
+.league em {
+	font-style: normal;
+	font-size: .68rem;
+	font-weight: 700;
+	letter-spacing: .12em;
+	text-transform: uppercase;
+	color: var(--on-dark-2);
+	text-align: center;
+}
+.league-nfl  .league-mark { background: var(--butter); }
+.league-ncaa .league-mark { background: var(--coral); color: #fff; }
+.league-nba  .league-mark { background: var(--teal-soft); }
+.league-mlb  .league-mark { background: var(--sand); }
+.league-fifa .league-mark { background: var(--lime); font-size: 1.55rem; }
+
 .sport-grid { display: grid; gap: 1.1rem; }
 .sport-card {
 	background: rgba(253, 247, 234, .07);
@@ -825,7 +899,17 @@ p { margin: 0 0 1.15em; }
 .sport-card:nth-child(2) { border-top-color: var(--coral); }
 .sport-card:nth-child(3) { border-top-color: var(--butter); }
 .sport-card:nth-child(4) { border-top-color: var(--lime); }
+.sport-card:nth-child(5) { border-top-color: var(--wine); }
 .sport-icon { width: 40px; height: 40px; color: var(--butter); margin-bottom: .7rem; }
+.sport-league {
+	font-family: var(--display);
+	font-weight: 800;
+	font-size: .95rem;
+	letter-spacing: .1em;
+	text-transform: uppercase;
+	color: var(--butter);
+	margin: 0 0 .1rem;
+}
 .sport-card h3 { font-size: 1.55rem; margin: 0 0 .25rem; color: #fff; }
 .sport-when {
 	font-size: .78rem;
@@ -853,8 +937,8 @@ p { margin: 0 0 1.15em; }
 /* These are complete posters, not crop-safe photographs. No aspect-ratio and
    no object-fit - let them render whole so the "$12 COMBO" artwork is never
    sliced through. */
-.combo-shots { display: grid; grid-template-columns: 1fr 1fr; gap: 0; background: var(--sand-3); align-self: stretch; }
-.combo-shots img { display: block; width: 100%; height: auto; align-self: start; }
+.combo-shots { display: grid; grid-template-columns: 1fr; gap: 0; background: var(--sand-3); align-self: stretch; place-items: center; }
+.combo-shots img { display: block; width: 100%; max-width: 420px; height: auto; margin: 0 auto; }
 .combo-copy { padding: 0 1.5rem 1.8rem; }
 .combo-flag {
 	display: inline-block;
@@ -1186,8 +1270,7 @@ p { margin: 0 0 1.15em; }
 	.screen-stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 	.food-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 	.combo { grid-template-columns: 1fr 1fr; gap: 0; align-items: center; }
-	.combo-shots { align-self: center; }
-	.combo-shots { grid-template-columns: 1fr 1fr; }
+	.combo-shots { align-self: stretch; padding: 1.5rem; }
 	.combo-copy { padding: 2rem; }
 }
 
@@ -1226,7 +1309,9 @@ p { margin: 0 0 1.15em; }
 	.menu-nav { top: 77px; }
 	.findus-grid { grid-template-columns: .9fr 1.1fr; gap: 3rem; }
 	.photo-grid { grid-template-columns: repeat(4, 1fr); }
-	.sport-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+	/* auto-fit rather than a fixed 4, so adding or removing a sport never
+	   leaves a single orphaned card stranded on its own row. */
+	.sport-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
 	.food-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 	.combo { grid-template-columns: .95fr 1.05fr; }
 }
