@@ -499,7 +499,7 @@ p { margin: 0 0 1.15em; }
 .tonight-empty { color: var(--on-dark-2); margin: 0; font-size: 1.1rem; }
 
 .hh-flag {
-	display: inline-block;
+	display: none;
 	margin-top: 1.1rem;
 	background: var(--coral);
 	color: #33200a;
@@ -511,6 +511,7 @@ p { margin: 0 0 1.15em; }
 	padding: .35rem .95rem;
 	border-radius: 999px;
 }
+.hh-flag.is-on { display: inline-block; }
 
 /* --------------------------------------------------------------------------
    Sections
@@ -604,6 +605,29 @@ p { margin: 0 0 1.15em; }
 .event-media { position: relative; aspect-ratio: 16 / 9; background: var(--sand-3); overflow: hidden; }
 .event-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
 .event-card:hover .event-media img { transform: scale(1.04); }
+
+/* Posters are portrait; the card is landscape. Show the whole flyer rather than
+   a slice of its middle, and fill the space either side with a blurred, dimmed
+   copy of the same image so the card still reads as one block of colour.
+   Both selectors carry .event-media so they outrank the `.event-media img`
+   rule above - a bare .event-poster would lose to it and go back to cropping. */
+/* Taller than the 16/9 default. A portrait flyer shown whole inside a
+   landscape box is limited by the box's HEIGHT, so height is the only thing
+   that makes it bigger - widening the card just adds more blurred margin. */
+.event-media.has-poster { background: var(--plum); aspect-ratio: 4 / 3; }
+.event-media .event-poster-bg {
+	position: absolute;
+	inset: 0;
+	object-fit: cover;
+	transform: scale(1.2);
+	filter: blur(18px) brightness(.55) saturate(1.15);
+}
+.event-media .event-poster {
+	position: relative;
+	object-fit: contain;
+}
+.event-card:hover .event-media .event-poster { transform: scale(1.03); }
+.event-card:hover .event-media .event-poster-bg { transform: scale(1.2); }
 .event-media-empty {
 	display: grid;
 	place-items: center;
@@ -872,7 +896,31 @@ p { margin: 0 0 1.15em; }
 	border-radius: 6px;
 	color: var(--plum);
 }
-.league-logo { max-width: 100%; height: 42px; width: auto; object-fit: contain; }
+/* The plaque behind each mark. A fixed box so a tall logo (the NBA player) and
+   a wide one (the MLB wordmark) still line up as a row, instead of stepping up
+   and down across the strip. */
+.league-chip {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 54px;
+	padding: .3rem .5rem;
+}
+.league.has-logo .league-chip {
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 0 1px 0 rgba(0, 0, 0, .18);
+}
+/* Constrained on BOTH axes. Height alone lets the MLB wordmark run four times
+   wider than the NBA logo and swamp the row; width alone squashes the tall
+   ones to nothing. object-fit keeps each one's own proportions inside the box. */
+.league-logo {
+	height: 100%;
+	width: 100%;
+	max-height: 40px;
+	object-fit: contain;
+}
 .league em {
 	font-style: normal;
 	font-size: .68rem;
@@ -886,6 +934,7 @@ p { margin: 0 0 1.15em; }
 .league-ncaa .league-mark { background: var(--coral); color: #fff; }
 .league-nba  .league-mark { background: var(--teal-soft); }
 .league-mlb  .league-mark { background: var(--sand); }
+.league-nhl  .league-mark { background: var(--bone, #fdf7ea); }
 .league-fifa .league-mark { background: var(--lime); font-size: 1.55rem; }
 
 .sport-grid { display: grid; gap: 1.1rem; }

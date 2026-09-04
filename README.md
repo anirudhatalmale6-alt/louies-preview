@@ -17,3 +17,15 @@ What doesn't, because a static host has no PHP:
 * The admin screens aren't here at all.
 
 Source code: https://github.com/anirudhatalmale6-alt/louies-cocktail-lounge
+
+## A note on the open/closed light
+
+On the real WordPress site the "Open now / Closed" pill in the header is worked
+out **in your browser**, against the bar's own timezone, and re-checked every
+minute — so it is correct here too, even though these are flat files with no PHP
+running behind them.
+
+It did not always work that way. It used to be decided on the server when the
+page was built, which meant this preview froze whatever it said at build time —
+and spent an evening advertising the bar as closed. The same thing would have
+happened on a live host with a page cache in front of it.

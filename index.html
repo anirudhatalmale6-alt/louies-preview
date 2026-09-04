@@ -73,9 +73,16 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 </ul>		</nav>
 
 		<div class="header-actions">
-			<span class="status-pill ">
+						<span class="status-pill is-open"
+				data-louies-status
+				data-open="06:00"
+				data-close="02:00"
+				data-tz="America/Los_Angeles"
+				data-label-open="Open now"
+				data-label-closed="Closed">
 				<span class="status-dot"></span>
-				Closed			</span>
+				<span class="status-text">Open now</span>
+			</span>
 
 			<a class="header-phone" href="tel:+19163629151">(916) 362-9151</a>
 
@@ -158,7 +165,11 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 													</li>
 									</ul>
 			
-					</div>
+						<span class="hh-flag"
+				data-louies-happy-hour
+				data-windows="[[&quot;06:00&quot;,&quot;10:00&quot;],[&quot;16:00&quot;,&quot;19:00&quot;]]"
+				data-tz="America/Los_Angeles">Happy hour is on right now</span>
+		</div>
 	</div>
 </section>
 
@@ -254,8 +265,56 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 
 					<div class="event-grid">
 				<article class="event-card">
-	<div class="event-media">
-					<img src="/louies-preview/wp-content/uploads/2026/09/Geo-12272025-2-900x506.jpg" alt="Geo Jam Open Mic" loading="lazy">
+	<div class="event-media has-poster">
+					<img class="event-poster-bg" src="/louies-preview/wp-content/uploads/2026/09/louies-flyer-mr-purple-792x1024.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+			<img class="event-poster" src="/louies-preview/wp-content/uploads/2026/09/louies-flyer-mr-purple-792x1024.jpg" alt="Mr. Purple" loading="lazy">
+		
+					<div class="event-date-chip">
+				<span class="dc-day">12</span>
+				<span class="dc-mon">Sep</span>
+			</div>
+			</div>
+
+	<div class="event-body">
+		
+		<h3><a href="/louies-preview/event/mr-purple/">Mr. Purple</a></h3>
+
+		<ul class="event-meta">
+			<li>Saturday, September 12</li>
+							<li>3:00 pm &ndash; 6:00 pm</li>
+								</ul>
+
+					<a class="btn btn-ghost btn-sm" href="/louies-preview/event/mr-purple/">Details</a>
+			</div>
+</article>
+<article class="event-card">
+	<div class="event-media has-poster">
+					<img class="event-poster-bg" src="/louies-preview/wp-content/uploads/2026/09/louies-flyer-chili-cook-off.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+			<img class="event-poster" src="/louies-preview/wp-content/uploads/2026/09/louies-flyer-chili-cook-off.jpg" alt="Chili Cook-Off" loading="lazy">
+		
+					<div class="event-date-chip">
+				<span class="dc-day">25</span>
+				<span class="dc-mon">Sep</span>
+			</div>
+			</div>
+
+	<div class="event-body">
+		
+		<h3><a href="/louies-preview/event/chili-cook-off/">Chili Cook-Off</a></h3>
+
+		<ul class="event-meta">
+			<li>Friday, September 25</li>
+							<li>5:00 pm</li>
+										<li><strong>$20 to enter &middot; $10 to judge</strong></li>
+					</ul>
+
+					<a class="btn btn-ghost btn-sm" href="/louies-preview/event/chili-cook-off/">Details</a>
+			</div>
+</article>
+<article class="event-card">
+	<div class="event-media has-poster">
+					<img class="event-poster-bg" src="/louies-preview/wp-content/uploads/2026/09/Geo-12272025-2-1024x538.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+			<img class="event-poster" src="/louies-preview/wp-content/uploads/2026/09/Geo-12272025-2-1024x538.jpg" alt="Geo Jam Open Mic" loading="lazy">
 		
 					<div class="event-date-chip">
 				<span class="dc-day">26</span>
@@ -281,7 +340,7 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 			</div>
 </section>
 
-<section class="section gameday on-plum" id="sports" style="--gameday-image:url('/louies-preview/wp-content/uploads/2026/09/louies-tables-and-tvs.jpg')">
+<section class="section gameday on-plum" id="sports" style="--gameday-image:url('/louies-preview/wp-content/uploads/2026/09/louies-busy-bar-1600x900.jpg')">
 	<div class="wrap">
 		<div class="section-head">
 			<p class="eyebrow">Game day</p>
@@ -298,25 +357,41 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 
 		<p class="leagues-head">On the screens</p>
 		<ul class="leagues">
-							<li class="league league-nfl">
-											<span class="league-mark">NFL</span>
-										<em>Pro football</em>
+							<li class="league league-nfl has-logo">
+										<span class="league-chip">
+													<img class="league-logo" src="/louies-preview/wp-content/uploads/2026/09/louies-league-nfl.png" alt="NFL" loading="lazy" decoding="async">
+											</span>
+					<em>Pro football</em>
 				</li>
 							<li class="league league-ncaa">
-											<span class="league-mark">NCAA</span>
-										<em>College</em>
+										<span class="league-chip">
+													<span class="league-mark">NCAA</span>
+											</span>
+					<em>College</em>
 				</li>
-							<li class="league league-nba">
-											<span class="league-mark">NBA</span>
-										<em>Basketball</em>
+							<li class="league league-nba has-logo">
+										<span class="league-chip">
+													<img class="league-logo" src="/louies-preview/wp-content/uploads/2026/09/louies-league-nba.png" alt="NBA" loading="lazy" decoding="async">
+											</span>
+					<em>Basketball</em>
 				</li>
-							<li class="league league-mlb">
-											<span class="league-mark">MLB</span>
-										<em>Baseball</em>
+							<li class="league league-mlb has-logo">
+										<span class="league-chip">
+													<img class="league-logo" src="/louies-preview/wp-content/uploads/2026/09/louies-league-mlb.png" alt="MLB" loading="lazy" decoding="async">
+											</span>
+					<em>Baseball</em>
+				</li>
+							<li class="league league-nhl has-logo">
+										<span class="league-chip">
+													<img class="league-logo" src="/louies-preview/wp-content/uploads/2026/09/louies-league-nhl.png" alt="NHL" loading="lazy" decoding="async">
+											</span>
+					<em>Hockey</em>
 				</li>
 							<li class="league league-fifa">
-											<span class="league-mark">FIFA</span>
-										<em>Soccer</em>
+										<span class="league-chip">
+													<span class="league-mark">FIFA</span>
+											</span>
+					<em>Soccer</em>
 				</li>
 					</ul>
 
@@ -405,36 +480,28 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 
 			<div class="photo-grid">
 									<figure class="is-wide">
-						<img src="/louies-preview/wp-content/uploads/2026/09/louies-exterior-dusk-900x506.jpg" alt="Louie&#039;s Cocktail Lounge exterior at dusk with the neon sign lit and the flag flying" loading="lazy">
-													<figcaption>3030 Mather Field Rd, just off Highway 50</figcaption>
+						<img src="/louies-preview/wp-content/uploads/2026/09/louies-band-dancefloor-900x506.jpg" alt="A band playing to a full dance floor at Louie&#039;s" loading="lazy">
 											</figure>
 									<figure class="">
-						<img src="/louies-preview/wp-content/uploads/2026/09/louies-sign-night-900x506.jpg" alt="Three customers outside Louie&#039;s Cocktail Lounge under the lit neon sign at night" loading="lazy">
-													<figcaption>Under the neon on Mather Field Rd</figcaption>
+						<img src="/louies-preview/wp-content/uploads/2026/09/louies-busy-bar-900x506.jpg" alt="Customers along the bar on a busy night" loading="lazy">
 											</figure>
 									<figure class="">
-						<img src="/louies-preview/wp-content/uploads/2026/09/louies-crowd-dancefloor-345x506.jpg" alt="A crowd of customers enjoying a busy night at Louie&#039;s Cocktail Lounge" loading="lazy">
-													<figcaption>Packed on a Saturday</figcaption>
+						<img src="/louies-preview/wp-content/uploads/2026/09/louies-packed-house-900x506.jpg" alt="A packed room at Louie&#039;s Cocktail Lounge" loading="lazy">
 											</figure>
 									<figure class="">
-						<img src="/louies-preview/wp-content/uploads/2026/09/louies-karaoke-stage-900x506.jpg" alt="Singer on the karaoke stage with the big lyric screen and lit dance floor at Louie&#039;s" loading="lazy">
-													<figcaption>The karaoke stage</figcaption>
+						<img src="/louies-preview/wp-content/uploads/2026/09/louies-live-stage-900x506.jpg" alt="A live band on stage under the Louie&#039;s sign" loading="lazy">
 											</figure>
 									<figure class="">
-						<img src="/louies-preview/wp-content/uploads/2026/09/louies-crowd-stage-320x506.jpg" alt="Customers on the checkered dance floor in front of the stage at Louie&#039;s" loading="lazy">
-													<figcaption>Down the front</figcaption>
+						<img src="/louies-preview/wp-content/uploads/2026/09/louies-pool-players-900x506.jpg" alt="Two people playing pool by the arcade machines" loading="lazy">
 											</figure>
 									<figure class="">
-						<img src="/louies-preview/wp-content/uploads/2026/09/louies-exterior-900x506.jpg" alt="The teal exterior and lit sign of Louie&#039;s Cocktail Lounge, 3030 Mather Field Rd, Rancho Cordova" loading="lazy">
-													<figcaption>Louie&#039;s on Mather Field Rd</figcaption>
+						<img src="/louies-preview/wp-content/uploads/2026/09/louies-exterior-day-900x506.jpg" alt="The front of Louie&#039;s Cocktail Lounge in daylight" loading="lazy">
 											</figure>
 									<figure class="">
-						<img src="/louies-preview/wp-content/uploads/2026/09/louies-tables-and-tvs-900x506.jpg" alt="Tables and bar stools facing the wall of TVs showing live sport at Louie&#039;s Cocktail Lounge" loading="lazy">
-													<figcaption>Tables &amp; the game</figcaption>
+						<img src="/louies-preview/wp-content/uploads/2026/09/louies-sign-lit-night-900x506.jpg" alt="The neon martini glass and Louie&#039;s sign lit at night" loading="lazy">
 											</figure>
 									<figure class="">
-						<img src="/louies-preview/wp-content/uploads/2026/09/louies-the-bar-900x506.jpg" alt="The main bar at Louie&#039;s Cocktail Lounge, Rancho Cordova" loading="lazy">
-													<figcaption>The bar</figcaption>
+						<img src="/louies-preview/wp-content/uploads/2026/09/louies-wrestling-ringside-900x506.jpg" alt="A wrestling ring set up at Louie&#039;s with a crowd around it" loading="lazy">
 											</figure>
 							</div>
 		</div>
