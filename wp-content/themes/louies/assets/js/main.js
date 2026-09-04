@@ -43,6 +43,25 @@
 		}
 	}
 
+	// Which day it is in the bar's timezone, 0 = Sunday. Null if unavailable.
+	//
+	// This has to come from the same clock as the minutes above. At 11pm in
+	// Sacramento it is already tomorrow in London, so a visitor's own weekday
+	// would move the whole karaoke schedule by a day.
+	var DOW = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+	function dayNowIn( tz ) {
+		try {
+			var name = new Intl.DateTimeFormat( 'en-US', {
+				timeZone: tz || undefined,
+				weekday: 'short'
+			} ).format( new Date() );
+			var d = DOW[ name ];
+			return ( undefined === d ) ? null : d;
+		} catch ( e ) {
+			return null;
+		}
+	}
+
 	function toMinutes( hhmm ) {
 		var bits = String( hhmm || '' ).split( ':' );
 		if ( 2 !== bits.length ) { return null; }
@@ -91,6 +110,85 @@
 				hh.classList.toggle( 'is-on', on );
 			}
 		}
+
+		refreshKaraoke();
+	}
+
+	/* The karaoke band at the top of the home page. Same reasoning as the
+	   open/closed light: the server can only say what was true when the page
+	   was built, and "Karaoke tonight" left in a cache is worse than useless
+	   on a Sunday. Recomputed here, from the bar's clock, from the same event
+	   data PHP used. */
+	function refreshKaraoke() {
+		var el = document.querySelector( '[data-louies-karaoke]' );
+		if ( ! el ) { return; }
+
+		var tz  = el.getAttribute( 'data-tz' );
+		var now = minutesNowIn( tz );
+		var dow = dayNowIn( tz );
+		if ( null === now || null === dow ) { return; }
+
+		var nights, days;
+		try {
+			nights = JSON.parse( el.getAttribute( 'data-nights' ) || '{}' );
+			days   = JSON.parse( el.getAttribute( 'data-days' ) || '[]' );
+		} catch ( e ) { return; }
+
+		var keys = Object.keys( nights );
+		if ( ! keys.length || 7 !== days.length ) { return; }
+
+		var state = null, day = null, time = '';
+
+		keys.forEach( function ( k ) {
+			if ( state ) { return; }
+			var d = parseInt( k, 10 ), n = nights[ k ];
+			if ( null === n.s || null === n.e || undefined === n.s || undefined === n.e ) { return; }
+
+			// A night that ends at 1:30am is still running after midnight, and
+			// by then the browser has already ticked over to the NEXT weekday.
+			// Yesterday's row is the one to check.
+			if ( n.e <= n.s ) {
+				if ( d === dow && now >= n.s ) { state = 'on'; day = d; }
+				else if ( ( ( d + 1 ) % 7 ) === dow && now < n.e ) { state = 'on'; day = d; }
+			} else if ( d === dow && now >= n.s && now < n.e ) {
+				state = 'on'; day = d;
+			}
+		} );
+
+		if ( ! state && nights[ dow ] && now < nights[ dow ].s ) {
+			state = 'tonight';
+			day   = dow;
+			time  = nights[ dow ].t;
+		}
+
+		if ( ! state ) {
+			for ( var i = 1; i <= 7 && ! state; i++ ) {
+				var d2 = ( dow + i ) % 7;
+				if ( nights[ d2 ] ) { state = 'next'; day = d2; time = nights[ d2 ].t; }
+			}
+		}
+		if ( ! state ) { return; }
+
+		var text = el.querySelector( '.karaoke-live-text' );
+		if ( text ) {
+			if ( 'on' === state ) {
+				text.textContent = el.getAttribute( 'data-label-on' ) || '';
+			} else if ( 'tonight' === state ) {
+				text.textContent = ( el.getAttribute( 'data-label-tonight' ) || '' ) + ' ' + time;
+			} else {
+				text.textContent = ( el.getAttribute( 'data-label-next' ) || '' ) + ' ' + days[ day ] +
+					' ' + ( el.getAttribute( 'data-label-from' ) || '' ) + ' ' + time;
+			}
+		}
+
+		el.classList.toggle( 'is-on', 'on' === state );
+
+		// The chip for the night in question, so the eye lands on it.
+		var chips = document.querySelectorAll( '.karaoke-night' );
+		Array.prototype.forEach.call( chips, function ( chip ) {
+			var d = parseInt( chip.getAttribute( 'data-dow' ), 10 );
+			chip.classList.toggle( 'is-now', d === day && 'next' !== state );
+		} );
 	}
 
 	refreshStatus();

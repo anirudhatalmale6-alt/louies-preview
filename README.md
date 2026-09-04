@@ -29,3 +29,12 @@ It did not always work that way. It used to be decided on the server when the
 page was built, which meant this preview froze whatever it said at build time —
 and spent an evening advertising the bar as closed. The same thing would have
 happened on a live host with a page cache in front of it.
+
+## v6 — karaoke leads the page
+
+Karaoke now has its own band directly under the hero, with the four nights read
+straight off the events. The line on the photo changes on its own: **"on right
+now"** while it is running, **"tonight from 9:00 pm"** earlier in the day, and
+**"next karaoke: Wednesday"** the rest of the week. Like the open/closed light,
+it is worked out in your browser against Rancho Cordova's clock, so it is right
+no matter when this page was built or where you are reading it from.

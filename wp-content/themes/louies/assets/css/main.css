@@ -390,6 +390,173 @@ p { margin: 0 0 1.15em; }
 
 .hero-actions { display: flex; flex-wrap: wrap; gap: .7rem; }
 
+/* --------------------------------------------------------------------------
+   Karaoke - the headline act
+
+   Directly under the hero, in the same dark as the hero so the two read as one
+   opening statement rather than a banner stuck on top of a page. The extra
+   bottom padding is not decoration: .fact-strip below pulls itself up with a
+   negative margin, and without the room it would sit on top of this copy.
+   -------------------------------------------------------------------------- */
+.karaoke {
+	position: relative;
+	overflow: hidden;
+	background: var(--plum-2);
+	border-top: 1px solid var(--plum-line);
+	color: var(--on-dark);
+	padding: clamp(2.2rem, 6vw, 3.4rem) 0 clamp(3.6rem, 9vw, 5rem);
+}
+/* A wash of stage colour bleeding in from the right, picked from the photo. */
+.karaoke::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background:
+		radial-gradient(110% 90% at 100% 0%, rgba(84, 192, 180, .22) 0%, rgba(84, 192, 180, 0) 62%),
+		radial-gradient(80% 80% at 0% 100%, rgba(239, 139, 44, .16) 0%, rgba(239, 139, 44, 0) 60%);
+	pointer-events: none;
+}
+.karaoke > * { position: relative; z-index: 2; }
+
+.karaoke-inner { display: grid; gap: clamp(1.5rem, 4vw, 2.6rem); align-items: center; }
+@media (min-width: 900px) {
+	.karaoke-inner { grid-template-columns: 1fr 1.08fr; }
+}
+
+.karaoke-eyebrow { color: var(--teal-soft); margin: 0 0 .4rem; }
+
+.karaoke-title {
+	font-size: clamp(2.3rem, 7.4vw, 3.9rem);
+	line-height: .96;
+	color: #fff;
+	margin: 0 0 .55rem;
+}
+.karaoke-title .script {
+	display: block;
+	font-size: clamp(1.5rem, 4.6vw, 2.4rem);
+	margin-top: .12em;
+	color: var(--butter);
+}
+
+.karaoke-lede {
+	font-size: clamp(1.05rem, 2.4vw, 1.22rem);
+	line-height: 1.6;
+	color: var(--on-dark-2);
+	margin: 0 0 1.3rem;
+	max-width: 46ch;
+}
+
+.karaoke-nights {
+	display: flex;
+	flex-wrap: wrap;
+	gap: .55rem;
+	list-style: none;
+	margin: 0 0 .9rem;
+	padding: 0;
+}
+.karaoke-night a {
+	display: block;
+	font-family: var(--display);
+	font-size: 1.28rem;
+	font-weight: 700;
+	letter-spacing: .09em;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: #fff;
+	background: rgba(253, 247, 234, .09);
+	border: 1px solid rgba(84, 192, 180, .45);
+	border-radius: 10px;
+	padding: .45rem 1.05rem;
+	transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+.karaoke-night a span {
+	display: block;
+	font-family: var(--body);
+	font-size: .78rem;
+	letter-spacing: .04em;
+	text-transform: none;
+	color: var(--on-dark-3);
+	margin-top: .1rem;
+}
+.karaoke-night a:hover,
+.karaoke-night a:focus-visible { background: rgba(84, 192, 180, .22); border-color: var(--teal-soft); color: #fff; }
+/* Tonight's night, filled rather than outlined. */
+.karaoke-night.is-now a {
+	background: var(--teal);
+	border-color: var(--teal-soft);
+	color: #06231f;
+	box-shadow: 0 6px 20px rgba(47, 157, 146, .38);
+}
+.karaoke-night.is-now a span { color: rgba(6, 35, 31, .78); }
+
+.karaoke-time {
+	font-family: var(--display);
+	font-size: 1.3rem;
+	font-weight: 700;
+	letter-spacing: .05em;
+	text-transform: uppercase;
+	color: var(--butter);
+	margin: 0 0 1.4rem;
+}
+.karaoke-time span { color: var(--on-dark-3); }
+
+.karaoke-actions { display: flex; flex-wrap: wrap; gap: .7rem; }
+
+.karaoke-media {
+	position: relative;
+	margin: 0;
+	border-radius: 14px;
+	overflow: hidden;
+	border: 1px solid var(--plum-line);
+	box-shadow: 0 22px 50px rgba(0, 0, 0, .45);
+}
+.karaoke-media img { display: block; width: 100%; height: auto; }
+
+/* The live line. Always in the DOM - see the note in parts/karaoke.php. */
+.karaoke-live {
+	position: absolute;
+	left: .7rem;
+	right: .7rem;
+	bottom: .7rem;
+	display: flex;
+	align-items: center;
+	gap: .55rem;
+	font-family: var(--display);
+	font-size: clamp(.98rem, 2.5vw, 1.16rem);
+	font-weight: 700;
+	letter-spacing: .045em;
+	text-transform: uppercase;
+	color: var(--on-dark);
+	background: rgba(36, 16, 24, .82);
+	backdrop-filter: blur(6px);
+	border: 1px solid rgba(253, 247, 234, .18);
+	border-radius: 10px;
+	padding: .5rem .85rem;
+}
+.karaoke-dot {
+	flex: 0 0 auto;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: var(--on-dark-3);
+}
+.karaoke-live.is-on {
+	color: #06231f;
+	background: rgba(84, 192, 180, .94);
+	border-color: rgba(253, 247, 234, .5);
+}
+.karaoke-live.is-on .karaoke-dot {
+	background: #06231f;
+	animation: karaoke-pulse 1.8s ease-in-out infinite;
+}
+@keyframes karaoke-pulse {
+	0%, 100% { box-shadow: 0 0 0 0 rgba(6, 35, 31, .5); }
+	50%      { box-shadow: 0 0 0 6px rgba(6, 35, 31, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+	.karaoke-live.is-on .karaoke-dot { animation: none; }
+}
+
 /* The four facts the client wanted made legible - now cards, not fine print. */
 .fact-strip {
 	position: relative;
